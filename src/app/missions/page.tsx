@@ -92,8 +92,7 @@ export default function MissionsPage() {
 
               <a
                 href="/map"
-                className="rounded-lg border border-gray-200 px-3 py-2 text-sm hover:bg-gray-50"
-              >
+className="rounded-lg border border-gray-200 px-3 py-2 text-sm ..."              >
                 Voir sur la carte
               </a>
             </div>
