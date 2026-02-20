@@ -3,12 +3,16 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { supabase } from "@/lib/supabaseClient";
+import { useSearchParams, useRouter } from "next/navigation";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [msg, setMsg] = useState("");
   const [userEmail, setUserEmail] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
+  const params = useSearchParams();
+  const router = useRouter();
+  const next = params.get("next") || "/missions";
 
   useEffect(() => {
     const load = async () => {
@@ -31,9 +35,11 @@ export default function LoginPage() {
     setLoading(true);
 
     const { error } = await supabase.auth.signInWithOtp({
-      email,
-      options: { emailRedirectTo: `${location.origin}/login` },
-    });
+  email,
+  options: {
+    emailRedirectTo: `${window.location.origin}/auth/callback?next=${encodeURIComponent(next)}`
+  }
+});
 
     setLoading(false);
 
