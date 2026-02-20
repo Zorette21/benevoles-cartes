@@ -7,12 +7,10 @@ import RequireAuth from "@/components/RequireAuth";
 type Mission = {
   id: string;
   title: string;
-  description: string;
-  city: string;
-  starts_at: string;
-  organizations?: {
-    name: string;
-  } | null;
+  description: string | null;
+  city: string | null;
+  starts_at: string | null;
+  organizations?: { name: string }[]; // <= tableau
 };
 
 export default function MissionsPage() {
@@ -35,7 +33,7 @@ export default function MissionsPage() {
         )
         .order("starts_at", { ascending: true });
 
-      setMissions((data as Mission[]) ?? []);
+      setMissions((data ?? []) as unknown as Mission[]);
       setLoading(false);
     };
 
@@ -69,7 +67,7 @@ export default function MissionsPage() {
               </div>
 
               <div className="mt-2 text-xs text-gray-500">
-                {m.organizations?.name ?? "Association inconnue"}
+                {m.organizations?.[0]?.name ?? "Association inconnue"}
               </div>
 
               {m.starts_at && (
