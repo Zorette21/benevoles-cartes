@@ -83,4 +83,14 @@ export default function LoginClient() {
           <button
             onClick={sendMagicLink}
             disabled={loading || !email}
-            style={{ marginTop: 12, padding: 12
+            style={{ marginTop: 12, padding: 12 }}
+          >
+            {loading ? "Envoi..." : "Envoyer le lien de connexion"}
+          </button>
+        </>
+      )}
+
+      {msg && <p style={{ marginTop: 12 }}>{msg}</p>}
+    </main>
+  );
+}
